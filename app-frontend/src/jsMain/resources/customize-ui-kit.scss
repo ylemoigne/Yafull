@@ -1,0 +1,54 @@
+// 1. Your custom variables and variable overwrites.
+//$global-link-color: #DA7D02;
+$global-color: #444;
+
+// 2. Import default variables and available mixins.
+@import "uikit/src/scss/variables-theme.scss";
+@import "uikit/src/scss/mixins-theme.scss";
+
+// 3. Your custom mixin overwrites.
+////@mixin hook-card() { color: #000; }
+//$inverse-form-background: rgba($global-inverse-color, 0.8);
+//$inverse-form-color: rgba($global-color, 0.8);
+//$inverse-form-focus-color: $global-color;
+$form-icon-color: currentColor;
+
+//$button-default-active-background: darken($inverse-global-primary-background, 50%);
+//$inverse-button-default-active-background: darken($inverse-global-primary-background, 50%);
+//@mixin hook-button-active() {
+//  &:not([disabled]) {
+//    transform: scale(0.98);
+//  }
+//}
+//
+//@mixin hook-inverse-button-default(){
+//  &[disabled] {
+//    opacity: 0.4;
+//    color: $button-disabled-color;
+//    border-color: $button-disabled-border;
+//  }
+//}
+//
+//@mixin hook-inverse-button-default-hover(){
+//  @include hook-inverse-button-default();
+//}
+//
+//@mixin hook-inverse-button-default-active() {
+//  &:not([disabled]) {
+//    color: tomato;
+//    background-color: darken($inverse-global-primary-background, 50%);
+//  }
+//  @include hook-inverse-button-default();
+//}
+
+.uk-form-icon:not(.uk-preserve) [fill*='#']:not(.uk-preserve) {
+  fill: currentColor;
+}
+
+.uk-form-icon:not(.uk-preserve) [stroke*='#']:not(.uk-preserve) {
+  stroke: currentColor;
+}
+
+
+// 4. Import UIkit.
+@import "uikit/src/scss/uikit-theme.scss";

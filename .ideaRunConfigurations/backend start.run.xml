@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="backend start" type="JetRunConfigurationType">
+        <option name="MAIN_CLASS_NAME" value="fr.javatic.noteapp.CLI"/>
+        <module name="YafullStack-NoteApp.app-backend.jvmMain"/>
+        <option name="PROGRAM_PARAMETERS" value="start"/>
+        <shortenClasspath name="NONE"/>
+        <option name="VM_PARAMETERS" value="-Dfile.encoding=UTF8"/>
+        <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/app-assemble/rootdir"/>
+        <method v="2">
+            <option name="Make" enabled="true"/>
+        </method>
+    </configuration>
+</component>

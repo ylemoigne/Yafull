@@ -1,0 +1,62 @@
+{
+  "dev": true,
+  "database": {
+    "@type": "fr.javatic.yafull.vertx.database.DatabaseConfig.External",
+    "type": "POSTGRESQL",
+    "host": "localhost",
+    "port": 5432,
+    "database": "yafull",
+    "user": "postgres",
+    "password": "postgres",
+    "ssl": false
+  },
+  "keystore": {
+    "path": "keystore.pcks12",
+    "password": "yafull"
+  },
+  "password": {
+    "checker": {
+      "maxAttemptBeforeLock": null,
+      "lockoutDurationInSeconds": 1800
+    },
+    "strengthEstimator": {
+      "exclusionKeywords": [
+        "yafull",
+        "admin"
+      ],
+      "minimumScore": 2,
+      "minimumLength": 8
+    },
+    "hasher": {
+      "iterations": 4
+    },
+    "defaultAdminPassword": "admin"
+  },
+  "web": {
+    "port": 2550,
+    "https": {
+      "port": 2553,
+      "certAlias": "default"
+    },
+    "jwt": {
+      "audiences": [
+        "yafull-noteapp"
+      ],
+      "expirationInSeconds": null,
+      "keyAlias": "default"
+    },
+    "cors": {
+      "allowedOriginPattern": "*",
+      "allowMethods": [
+        "GET",
+        "POST",
+        "OPTIONS",
+        "PUT",
+        "DELETE"
+      ],
+      "allowHeaders": [
+        "*"
+      ]
+    }
+  }
+}

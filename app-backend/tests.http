@@ -1,0 +1,3 @@
+GET http://localhost:2550/api/jwt
+X-Auth-Identifier: gmp
+X-Auth-Credential: GmpTeam1
