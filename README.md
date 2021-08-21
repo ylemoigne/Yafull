@@ -8,7 +8,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/ylemoigne/Yafull">
-    <img src="yafull-logo.svg" alt="Logo" width="80" height="80">
+    <img src="yafull-logo.svg" alt="Logo" width="560" height="160">
   </a>
 
 <h3 align="center">Yafull Stack</h3>
