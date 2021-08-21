@@ -140,15 +140,15 @@ Yann Le Moigne - [@LeMoigneY](https://twitter.com/lemoigney) - ylemoigne-yafull@
 
 [contributors-shield]: https://img.shields.io/github/contributors/ylemoigne/Yafull.svg?style=for-the-badge
 
-[contributors-url]: https://github.com//ylemoigne/Yafull/graphs/contributors
+[contributors-url]: https://github.com/ylemoigne/Yafull/graphs/contributors
 
 [forks-shield]: https://img.shields.io/github/forks/ylemoigne/Yafull.svg?style=for-the-badge
 
-[forks-url]: https://github.com//ylemoigne/Yafull/network/members
+[forks-url]: https://github.com/ylemoigne/Yafull/network/members
 
 [stars-shield]: https://img.shields.io/github/stars/ylemoigne/Yafull.svg?style=for-the-badge
 
-[stars-url]: https://github.com//ylemoigne/Yafull/stargazers
+[stars-url]: https://github.com/ylemoigne/Yafull/stargazers
 
 [issues-shield]: https://img.shields.io/github/issues/ylemoigne/Yafull.svg?style=for-the-badge
 
