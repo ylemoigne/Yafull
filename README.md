@@ -45,6 +45,93 @@
 
 Also test coverage is approaching the inexistant level and everything might break or expose strange behaviors. At least, you're warned.
 
+### Example or the fullstack API description
+
+Here the definition of an endpoint (see
+at https://github.com/ylemoigne/Yafull/blob/master/app-backend/src/commonMain/kotlin/fr.javatic.yafull.rest.plugin/jwt/CreateJWTTokenEndpoint.kt )
+
+```kotlin
+object CreateJWTTokenEndpoint : Endpoint(RestJson, setOf("Auth"), setOf(null)) {
+    override val method = HttpMethod.GET
+    override fun declarePath(builder: RestPathBuilder.Root): RestPathBuilder =
+        builder.literal("jwt")
+
+    val login = requestHeader<String>(name = "X-Auth-Identifier", description = "Login")
+    val password = requestHeader<String>(name = "X-Auth-Credential", description = "Password")
+
+    val responseOk = responseOk("Authentication succeed")
+        .withStringBody("JWT Token")
+
+    val responseAuthenticationFailed = responseUnauthorized("Authentication failed")
+        .withStringBody("Failure Explanation")
+}
+```
+
+It will be enough to have the endpoint documented in swagger.
+
+Now, we have to implements the backend handling (see
+at https://github.com/ylemoigne/Yafull/blob/master/app-backend/src/jvmMain/kotlin/fr/javatic/yafull/rest/plugin/jwt/CreateJWTTokenHandler.kt ):
+
+```kotlin
+class CreateJWTTokenHandler(
+    private val jwtProvider: JWTAuth,
+    private val config: JwtConfig,
+    private val passwordChecker: PasswordChecker,
+    private val authenticationUserInfoRetrieve: suspend (identifier: String) -> AuthenticationUserInfo?
+) : EndpointHandler<CreateJWTTokenEndpoint> {
+    data class AuthenticationUserInfo(val hashedPassword: String, val claims: JsonObject? = null)
+
+    override suspend fun CreateJWTTokenEndpoint.handle(ctx: RoutingContext) {
+        val identifier = login(ctx)
+        val password = password(ctx)
+
+        val user = authenticationUserInfoRetrieve(identifier)
+
+        when (
+            val res = awaitBlocking { passwordChecker.check(identifier, password, user?.hashedPassword) }) {
+            is PasswordChecker.AuthResult.Ok -> {
+                val token = jwtProvider.generateToken(
+                    user?.claims ?: JsonObject(),
+                    jwtOptionsOf(
+                        subject = user?.claims?.getString("sub") ?: identifier,
+                        algorithm = "RS256",
+                        audiences = config.audiences,
+                        expiresInSeconds = config.expirationInSeconds
+                    )
+                )
+
+                this.responseOk(ctx) { token }
+            }
+            is PasswordChecker.AuthResult.Unauthorized -> this.responseAuthenticationFailed(ctx) { res.message }
+        }
+    }
+}
+```
+
+Finally the client can call it (see more complete example
+at https://github.com/ylemoigne/Yafull/blob/master/app-frontend/src/jsMain/kotlin/fr/javatic/noteapp/component/LoginForm.kt ):
+
+```kotlin
+val login: String = ...
+val password: String = ...
+
+restClient.request(CreateJWTTokenEndpoint) {
+    describe {
+        this.login(login)
+        this.password(password)
+        handler(this.responseOk) { ctx ->
+            appContext.bearer = this.responseOk.body(ctx)
+            onLoginSucess?.invoke()
+        }
+        handler(this.responseAuthenticationFailed) { ctx ->
+            val message = this.responseOk.body(ctx)
+            loginFailedMessageState = message
+            onLoginFailed?.invoke()
+        }
+    }
+}.perform()
+```
+
 ### Built With
 
 This project was started with the only purpose to play with some fun technology.
