@@ -206,7 +206,7 @@ You'll need **either**
 ```
 git clone https://github.com/ylemoigne/Yafull.git
 cd Yafull
-gradlew :app-backend:run :app-frontend:jsBrowserDevelopmentRun --continue
+gradlew :app-backend:run :app-frontend:jsBrowserDevelopmentRun --continuous
 ```
 
 NOTE: A view of rest API is available at `http://localhost:2550/api/_doc/`
